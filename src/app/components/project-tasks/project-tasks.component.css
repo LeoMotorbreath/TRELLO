@@ -1,0 +1,24 @@
+.taskList{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20%;
+}
+.task{
+    display: flex;
+    display: block;
+    flex-direction: column;
+}
+.creatorName{
+    display: block;
+}
+.taskName{
+    display: block;
+
+}
+.taskDef{
+    display: block;
+    margin-left: 10%;
+}
+.goToForm{
+    display: block;
+}

@@ -1,0 +1,58 @@
+
+.outterSpace{
+    width: 100%;
+    height: 100% !important ;
+    background-color: rgba(0,0,255,0);
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    z-index: 998;
+    
+    
+}
+.innerSpace{
+    width: 75%;
+    height: 75%;
+    background-color: lavender;
+    z-index: 999;
+    margin-left: 12.5%;
+    
+}
+:host{
+    width: 100% !important;
+    height: 100% !important;
+}
+.nameDiv{
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 15%;
+    height: 8%;
+}
+.nameDiv input{
+    width: 100%;
+}
+.textDiv{
+    margin-top: 5%;
+    width: 50%;
+    margin-left: 25%;
+    height: 12%;
+    
+}
+.textDiv textarea{
+    width: 100%;
+    height: 100%;
+}
+.submitDiv{
+    width: 20%;
+    height: 5%;
+    margin-left:40% ;
+    margin-top: 5%;
+}
+.submitDiv button{
+    width: 100%;
+    height: 100%;
+}
+.modalWindow{
+    width: 100%;
+    height: 100%;
+}

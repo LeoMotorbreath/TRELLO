@@ -1,0 +1,27 @@
+
+<div class ="regDiv">
+    <div class = "nameDiv inputDiv"> 
+        <input type = "text" minlength = "4" maxlength = "10" required ngModel name = "name" #name="ngModel" placeholder="your name" >
+        <div class = "  allert " *ngIf = "name.touched && !name.valid" >
+            <div *ngIf = "name.errors.required">Name is required</div>
+            <div *ngIf = "name.errors.minlength">name should be minimum {{name.errors.minlength.requiredLength}} characters </div>
+        </div>
+    </div>
+    <div class ="loginDiv inputDiv ">
+        <input type = "text" minlength="6" maxlength="15" required ngModel name = "login" #login="ngModel" placeholder="your login" >
+        <div class = " allert" *ngIf = "login.touched && !login.valid" >
+            <div *ngIf = "login.errors.required">login is required</div>
+            <div *ngIf = "login.errors.minlength">login should be minimum {{login.errors.minlength.requiredLength}} characters </div>
+        </div>
+    </div>
+    <div class = "passwordDiv inputDiv"> 
+        <input type = "text"  minlength="6" maxlength="15" required ngModel name = "password" #password="ngModel" placeholder="yout password">
+        <div class = "  allert" *ngIf="password.touched && !password.valid" >
+            <div *ngIf = "password.errors.required">password is required</div>
+            <div *ngIf = "password.errors.minlength">password should be minimum {{password.errors.minlength.requiredLength}} characters </div>
+        </div>
+    </div>
+    <div class = "submitDiv">
+        <button (click) = "(name.invalid || login.invalid || password.invalid)? setTouched(name,login,password) : registrateUser(name.value,login.value,password.value)" >создать</button>
+    </div>
+</div>

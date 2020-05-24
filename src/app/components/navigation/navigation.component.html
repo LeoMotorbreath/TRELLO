@@ -1,0 +1,14 @@
+
+<div class="navbar navbar-dark bg-dark">
+    <div>
+        <div class = "navbar-brand" [ngClass]="path.active? 'active' : 'nonActive'" *ngFor="let path of paths" (click)="toggleActive(path.name) ;navigate(path.name)" >
+            {{path.name}}
+        </div>
+        <div *ngIf="auth.currentUser" class=" navbar-brand" (click)="navigateToInvites()">
+            invites({{auth.currentUser.invites.length}})
+        </div>
+        <div (click)="navigateToAuth()" class = "navbar-brand">
+            log out
+        </div>
+    </div>
+</div>

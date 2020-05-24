@@ -1,0 +1,22 @@
+<p>invites</p>
+<div *ngIf="currentUser">
+    <div *ngIf="currentUser.invites">
+        <div *ngFor="let invite of currentUser.invites" class = 'invite'>
+            <div>
+                {{invite.inviteToModel.name}}
+            </div>
+            <div>
+                {{invite.inviterModel.name}}
+            </div>
+            <div>
+                <button (click)="acceptInvite(invite)"></button>
+                <button></button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!currentUser.invites.length">
+        <div class = "invite" style="background-color: coral;">
+            no invites yet :(
+        </div>
+    </div>
+</div>  

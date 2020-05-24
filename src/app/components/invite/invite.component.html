@@ -1,0 +1,9 @@
+
+    <div>
+        <div><input required type="text" placeholder="user ID" [(ngModel)]="invitedId"></div>
+        <div><input type="text" placeholder="some text to user" [(ngModel)]="text"></div>
+        <div *ngIf='creating'>as Admin <input type ="checkbox"   #checkbox ></div>
+        <div><input type="submit" placeholder="send" (click)="creating? inviteToProject(invitedId,text, checkbox) : inviteToTask(invitedId,text) "></div>
+    </div>        
+    
+            

@@ -1,0 +1,78 @@
+:host{
+    width: 100%;
+    height: 100%;
+}
+.taskList{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(129, 128, 128);
+    width:50%;
+    height: 60%;
+    overflow: scroll;
+    
+}
+.taskListName{
+    display: block;
+    background-color: lightblue;
+}
+.taskName{
+    display: block;
+    display: flex;
+    justify-content: space-between;
+    background-color: lightcoral;
+}
+.taskListsDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:100%;
+    height: 100%;
+
+}
+.modalWindow{
+    width: 100%;
+    height: 100%;
+    position:fixed;
+    
+}
+.cont{
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+background-color: lavender;
+}
+.projName{
+    width: 10%;
+    margin-left: 45%;
+    display: block;
+    
+    
+}
+.center{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10412412;
+}
+.performers{
+    display: block;
+    width: 100%;
+    height: 50%;
+    overflow: scroll;
+    overflow-x: hidden;
+    border: 1px black solid;
+}
+.noPerfomers{
+    display: block;
+    background-color: coral;
+    height: 12%;
+}
+.performer{
+    width: 100%;
+    height: 15%;
+    border: 1px gray solid;
+    background-color: bisque;
+
+}

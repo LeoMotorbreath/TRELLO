@@ -1,0 +1,26 @@
+.navigation{
+    display: block;
+    width: 20%;
+    margin-left: 20%;
+    cursor: pointer;
+    display: flex;
+}
+.navigationDiv{
+    display: flex;
+    
+}
+.header{
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    height: 7%;
+    width: 100%;
+    color:white
+}
+.active{
+    font-size: 27px!important;
+}
+.nonActive{
+    font-size: 19px;
+}
+

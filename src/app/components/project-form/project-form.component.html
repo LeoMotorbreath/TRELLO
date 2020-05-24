@@ -1,0 +1,17 @@
+<div style="width: 100%; height: 100%; background-color: white;">
+    <div style="width: 75%; height: 75%; background-color: wheat; margin-left: 12.5%; margin-top:6%;"  >
+        <div >
+            <input type= "text" style="width: 30%; margin-left: 35%; margin-top: 20%;" required ngModel name="projectName" #projectName = "ngModel"> 
+            
+        </div>
+        <div class="alert alert-right" style="background-color: red;" *ngIf="!projectName.valid && projectName.touched">
+            project name required
+        </div>
+        <div > 
+            <textarea  style="width: 30%;margin-left: 35%;margin-top: 5%;" [(ngModel)]="projectDefenition"></textarea>
+        </div>
+        <div  >
+            <button class="btn btn-primary " style="width: 10%; margin-left: 45%; margin-top: 3%;"  (click)="createProject(projectName.value,projectDefenition)">создать</button>
+        </div>
+    </div>
+</div>

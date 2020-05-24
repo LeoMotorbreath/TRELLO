@@ -1,0 +1,56 @@
+<p (click)="navigateToProject()">go back </p>
+<div *ngIf="task" class="task">
+    <div class="name" (click)="navigateToProject()">
+        task:{{task.name}} from project: {{task.projectModel.name}}
+    </div>    
+    
+    <div class="contain">
+        <div (click)='toggleCommentInput()'>
+            comments
+        </div>
+        <div *ngIf="commentInput">
+            <app-comment (onComment) ="onComment($event)">
+                
+            </app-comment>
+        </div>
+        <div *ngIf="task.comments.length">
+            <div *ngFor="let comment of task.comments">
+                <div>
+                    {{comment.text}}
+                </div>
+                <div (click)="deleteComment(comment)">
+                    x
+                </div> 
+                    
+            </div>
+        </div>    
+        <div *ngIf="!task.comments.length">
+            <div>
+                no comments yet
+            </div>
+        </div>
+    </div>
+    <div class="contain">
+        <div (click)="toggleInviteRendering()">
+            invite
+        </div>
+        <div *ngIf="invite">
+            <div *ngIf='invalidInvite'>
+                ivalid id
+                check your input
+            </div>
+            <app-invite [creating]='false' (onNewTaskInvite)="onInvite($event)">
+
+            </app-invite>
+        </div>
+        <div *ngIf="!task.perfomers.length" >
+            no perfomers yet({{task.invited.length}} invited).. invite some one!
+        </div>
+        <div *ngIf="task.perfomers.length">
+            
+            <div *ngFor="let perfomer of task.perfomers">
+                {{perfomer.name}}
+            </div>
+        </div>
+    </div>
+</div>  

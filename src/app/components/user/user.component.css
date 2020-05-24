@@ -1,0 +1,17 @@
+.userName{
+    width: 30%;
+    margin-left:45%;
+    height: 5%;
+    margin-top: 10%;
+}
+.header{
+    height: 10%;
+    width: 100%;
+    margin-top: 5%;
+    background-color: darkslategray;
+    color: white;
+    cursor: pointer;
+}
+.name{
+    margin-left: 0.5%;
+}

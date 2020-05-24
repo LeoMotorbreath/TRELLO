@@ -1,0 +1,83 @@
+<div *ngIf="proj" style="width: 100% ;height: 50%;" >
+    <div class = 'projName'>Project:{{proj.name}}</div><div (click)="deleteProject()">
+        x
+    </div>
+    <div class ='taskListsDiv'> 
+        <div *ngFor="let taskList of taskLists; index as i ;" class="taskList overflow-auto" >
+            <div class="taskListName"> 
+                <div>
+                    {{taskList.name}}
+                </div>
+                
+                <div *ngIf="taskList.name == 'new'" style="background-color: darksalmon;" (click)="rednerTaskForm()">
+                    +
+                </div>
+            </div>
+            <div cdkDropList
+            #todoList="cdkDropList"
+            [cdkDropListData] ="taskList"
+            [cdkDropListConnectedTo]="[taskList]" 
+            (cdkDropListDropped)="dropEvent($event)">
+
+            
+                <div cdkDrag  *ngFor="let task of taskList.tasks " class="taskName"   >
+                    <div (click)=" navigateToTask(task.id)">
+                        {{task.name}}
+                    </div>
+                    <div *ngIf="validateBackArrow(taskList)" (click)=" transferTask(task,taskList,taskLists[i-1])">
+                        BA
+                    </div>
+                    <div *ngIf="validateForwardArrow(proj,taskList)" (click)=" transferTask(task,taskList,taskLists[i+1])">
+                        FA
+                    </div>
+                    <div (click)="takeTask(task)">
+                        take
+                    </div>
+                    <div (click)="deleteTask(task,taskList)">
+                        X
+                    </div>
+                    <div (click)=" navigateToTask(task.id)" >
+                        comments({{task.comments.length}})
+                    </div>
+                    
+                </div> 
+            </div>
+            <div>
+                
+            </div>  
+        </div>
+    </div>
+    <div>Project perfomers</div>
+    <div class ="performers" *ngIf ="proj">
+        <div (click)= "toggleInputLine()" >...invite </div>
+        <div *ngIf="creatingInvite">
+            <div *ngIf="invalidInvite"> invalid data! check your input or user id </div>
+            <app-invite (onNewProjectInvite)=" onInvite($event)" [creating]='true'>
+            </app-invite>
+        </div>
+        <div *ngIf ="!proj.perfomers.length" class="noPerfomers">
+            <div >this project don't have any perfomer but you. invite some one!</div>
+        </div> 
+        <div *ngIf = "proj.perfomers.length" >
+            <div *ngFor="let perfomer of proj.perfomers" class="perfomer" > {{perfomer.name}} </div>    
+        </div>
+    </div>
+    <div *ngIf="proj" class="perfomers">
+        <div>invaited..</div>
+        <div *ngFor="let invited of proj.invited">
+            <div>
+                {{invited.id}}
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div *ngIf="renderService.renderTaskForm" style="position: absolute ;left: 0; top: 0;" >
+    <app-task-form (onChanged)="onModalWindowCanel()" (onTasks)="setTaskList($event)">
+
+    </app-task-form>
+</div>
+        
+    
+        
+       
