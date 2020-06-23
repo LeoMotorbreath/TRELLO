@@ -1,0 +1,7 @@
+
+<div style="display: flex; flex-direction: column;height: 100%;">
+    <app-navigation *ngIf="renderService.renderNavBar"></app-navigation>
+    <app-loading *ngIf ="renderService.renderLoadingWindow" style="z-index: 10000000000;"></app-loading>
+    <router-outlet></router-outlet>
+</div>
+    

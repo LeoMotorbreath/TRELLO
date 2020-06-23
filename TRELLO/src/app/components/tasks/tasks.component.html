@@ -1,0 +1,42 @@
+<div class = 'contant'>        
+    
+    <div class = "tasks" *ngIf="allRelatedTasks">
+        <div style="width: 100%; height: 8%;background-color: rgb(91, 214, 255); text-align: center;">
+            all related tasks
+        </div>
+        <div *ngIf="allRelatedTasks.length" style="display: flex;flex-direction: column;">
+            <div *ngFor="let tsk of allRelatedTasks" class="task">
+                <div (click)="navigateToTask(tsk)">
+                    {{tsk.name}}
+                </div>
+                from
+                <div (click)=" navigateToTaskProject(tsk)">
+                    {{tsk.projectModel.name}}
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!allRelatedTasks.length" style="background-color: coral;">
+            no related tasks
+        </div>        
+    </div>
+    <div class = "tasks" *ngIf="user">
+        <div style="width: 100%;height: 8%; background-color: rgb(91, 214, 255); text-align: center;">
+            all accepted tasks
+        </div>
+        <div *ngIf="user.tasks.length">
+            <div *ngFor="let tsk of user.tasks" class = "task">
+                <div  (click)="navigateToTask(tsk)">
+                    {{tsk.name}}
+                </div>
+                from
+                <div (click)=" navigateToTaskProject(tsk)">
+                    {{tsk.projectModel.name}}
+                </div>
+            </div>
+        </div>
+        <div  *ngIf="!user.tasks.length" style="background-color: coral;">
+            No accepted tasks.
+            You can get some by clicking "take" button on project page 
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div style="width: 100% ;height: 50%;" *ngIf="proj" >
+    <div class = 'projName' >Project:{{proj.name}}</div><div (click)="deleteProject()">delete..</div>
+    <div class ='taskListsDiv' cdkDropListGroup > 
+        <div *ngFor="let taskList of taskLists; index as i ;" class="taskList overflow-auto" cdkDropList
+        [cdkDropListData] ="taskList.tasks"
+        (cdkDropListDropped)="dropEvent($event)">
+            <div class="taskListName"> 
+                <div>
+                    {{taskList.name}}
+                </div>
+                <div *ngIf="taskList.name == 'new'" style="background-color: darksalmon;" (click)="rednerTaskForm()">
+                    +
+                </div>
+            </div>
+                <div cdkDrag  *ngFor="let task of taskList.tasks " class="taskName"   >
+                    <div (click)=" navigateToTask(task.id)">
+                        {{task.name}}
+                    </div>
+                    
+                    <div (click)="takeTask(task)">
+                        take
+                    </div>
+                    <div (click)="deleteTask(task,taskList)">
+                        X
+                    </div>
+                    <div (click)=" navigateToTask(task.id)" >
+                        comments({{task.comments.length}})
+                    </div>  
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div>Project perfomers</div>
+    <div class ="performers" *ngIf ="proj">
+        <div (click)= "toggleInputLine()" >...invite </div>
+        <div *ngIf="creatingInvite">
+            <div *ngIf="invalidInvite"> invalid data! check your input or user data </div>
+            <app-invite (onNewProjectInvite)=" onInvite($event)" [creating]='inviteData'>
+            </app-invite>
+        </div>
+        <div *ngIf ="!proj.perfomers.length" class="noPerfomers">
+            <div >this project don't have any perfomer but you. invite some one!</div>
+        </div> 
+        <div *ngIf = "proj.perfomers.length" >
+            <div *ngFor="let perfomer of proj.perfomers; index as i" class="perfomer" >{{i+1}}.{{perfomer.email}}</div>    
+        </div>
+    </div>
+    <div class="perfomers" >
+        <div>invaited..</div>
+        <div *ngFor="let invited of proj.invited; index as i">
+            <div>
+                {{i+1}}.{{invited.email}}:{{invited.id}}
+            </div>
+        </div>
+    </div>
+    
+<div *ngIf="renderService.renderTaskForm" style="position: absolute ;left: 0; top: 0;" >
+    <app-task-form (onCancel)="onModalWindowCanel()" (onTasks)="setTaskList($event)"></app-task-form>
+</div>
+<div *ngIf="isDeleted">
+    <app-deleted-window (deletedWindow)="deletedProjectProcessing($event)">
+    </app-deleted-window>
+</div>
+    
+        
+       

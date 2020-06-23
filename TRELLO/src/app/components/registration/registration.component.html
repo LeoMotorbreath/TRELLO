@@ -1,0 +1,27 @@
+<div style=" background-color: linen; cursor: pointer;" (click)="goToAuth()">
+назад
+</div>
+<div class ="regDiv">
+    
+    <div style="position: absolute; width: 100%; height: 100%;top:40%">
+
+        <div class ="emailDiv inputDiv ">
+            <input type = "text" minlength="6" maxlength="30" required ngModel name = "login" #login="ngModel" placeholder="your email" >
+            <div class = " allert" *ngIf = "login.touched && !login.valid" >
+                <div *ngIf = "login.errors.required">email is required</div>
+                <div *ngIf = "login.errors.minlength">email should be minimum {{login.errors.minlength.requiredLength}} characters </div>
+            </div>
+        </div>
+        <div class = "passwordDiv inputDiv"> 
+            <input type = "text"  minlength="6" maxlength="20" required ngModel name = "password" #password="ngModel" placeholder="yout password" >
+            <div class = "allert" *ngIf="password.touched && !password.valid" >
+                <div *ngIf = "password.errors.required">password is required</div>
+                <div *ngIf = "password.errors.minlength">password should be minimum {{password.errors.minlength.requiredLength}} characters </div>
+            </div>
+        </div>
+        <div style="margin-top: 5%;">
+            <button class ="btn btn-primary" (click) = 'registre(login.value,password.value)' appDisabled >создать</button>
+        </div>
+        
+    </div>
+</div>

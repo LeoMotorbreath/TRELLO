@@ -1,0 +1,25 @@
+
+<div class = "authDiv"> 
+    <div class="loginDiv">
+        <input  [(ngModel)]="email">
+    </div>
+    <div class="passwordDiv">
+        <input  [(ngModel)]="password">
+    </div>
+    <div class="submitDiv">
+        <button class="btn btn-primary sub-btn enter" type = "submit" (click)="login()" myDisabled>
+            Войти
+        </button> 
+    </div>
+    <div class = "regDiv">
+        <button class = "reg-btn btn btn-secondary btn-lg" (click)="moveToRegistration()">регистрация</button>
+    </div>
+    <div>
+        
+    </div>
+
+</div>
+
+
+
+

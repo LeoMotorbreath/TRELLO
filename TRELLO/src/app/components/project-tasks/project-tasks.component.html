@@ -1,0 +1,21 @@
+<div style="display:flex; " >
+    <div *ngFor="let taskList of currentProjectTaskLists " class="taskList">
+    <div style="display: block;">{{taskList.name}}</div>
+    <div (click)=" goToTaskForm(taskList.name)" class="goToForm"> +...</div>
+    <div *ngFor="let task of taskList.tasks" class ="task">
+        <div class ="creatorName">{{task.creator }}</div>
+        <div class="taskName"> {{task.name}}</div>
+        <div style="display: block;" >ответить</div>
+        <div >
+            <div *ngFor="let comment of task.comments">
+                <div >{{comment.text}}</div>
+            </div>
+            <input type="text" [(ngModel)]="commentText">
+            <input type="submit" (click)="commentTask(task,commentText)">
+            <div >x</div>
+        </div>
+        
+        <div class="taskDefenition">{{task.defenition}}</div>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div *ngIf="user">
+    <div class = "userName">
+        user: {{user.email}},  id: {{user.id}}
+    </div>
+    <div class = "header" (click) = navigateToProjects()>
+        projects
+    </div>
+    <div *ngIf = '!user.projects.length' style="background-color: coral;">
+        no projects yet (accept invite or create project by yourself ) 
+    </div>
+    <div *ngFor="let project of user.projects" (click)="navigateToProject(project.id)" class="name">
+        {{project.name}}
+    </div>
+    <div class = "header" (click)="navigateToTasks()">
+        Tasks
+    </div>
+    <div *ngIf = '!user.tasks.length' style="background-color: coral;">
+        no task yet ( take some task from your projects!)
+    </div>
+    <div *ngFor="let task of user.tasks" class = "name">
+        {{task.name}}
+    </div>
+</div>

@@ -1,0 +1,42 @@
+:host {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+.authDiv {
+    width: 75%;
+    height: 75%;
+    margin: 0 auto;
+    margin-top: 7%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 240, 212);
+}
+.authDiv div {
+    display: block;
+    width: 50%;
+}
+.enter {
+    width:50%;
+    margin-left: 75%;
+}
+.authDiv div input {
+    width: 100%;
+    margin-left:50%;
+    
+}
+.loginDiv {
+    margin-top: 30%;
+}
+.passwordDiv {
+    margin-top: 4%;
+}
+.regDiv {
+    width: 15% !important;
+    margin-left :  auto;
+    margin-top: auto;
+    
+}
+.reg-btn{
+    width: 100%;
+}
