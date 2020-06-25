@@ -1,0 +1,60 @@
+<p (click)=" goBack()">назад </p>
+<div *ngIf="task" class="task">
+    <div class="name" (click)="navigateToProject()">
+        Задача : {{task.name}} из проекта : {{task.projectModel.name}}
+    </div>    
+    <div class="contain"  >
+        <div style="display: flex; width: 100%; cursor: pointer" (click)='toggleCommentInput()'>
+
+            <div >
+                комментарии
+            </div>
+            <div *ngIf="!task.comments.length">
+                (no comments yet)
+            </div>
+        </div>
+        
+        <div *ngIf="task.comments.length" >
+            <div *ngFor="let comment of task.comments" style="display: flex; justify-content: space-between; flex-direction: column;">
+                <div style="display: inline-flex; justify-content: space-between; ">
+                    {{comment.authorModel.email}}
+                    <div (click)="deleteComment(comment)" appDisabled style=" display:inline; font-size: 150%; cursor: pointer; ">
+                        x
+                    </div> 
+                </div>
+                <div style=" display:inline; margin-left: 10%;">
+                    {{comment.text}}
+                </div>
+                
+                    
+            </div>
+        </div>    
+        <div *ngIf="commentInput">
+            <app-comment (onComment) ="onComment($event)"></app-comment>
+        </div>
+        
+    </div>
+    <div class="contain">
+        <div (click)="toggleInviteRendering()">
+            пригласить
+        </div>
+        <div *ngIf="invite">
+            <div *ngIf='invalidInvite'>
+                некорректное приглашение
+                проверьте ввод
+            </div>
+            <app-invite [creating]='inviteData' (onNewTaskInvite)="onInvite($event)">
+
+            </app-invite>
+        </div>
+        <div *ngIf="!task.perfomers.length " >
+            ниодного приглашенного(0).. пригласите кого-то!
+        </div>
+        <div *ngIf="task.perfomers.length">
+            
+            <div *ngFor="let perfomer of task.perfomers">
+                {{perfomer.name}}
+            </div>
+        </div>
+    </div>
+</div>  

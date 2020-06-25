@@ -1,0 +1,65 @@
+<div style="width: 100% ;height: 50%;" *ngIf="proj" >
+    <button class="btn btn-danger" style="margin-left: auto; display: block;" (click)="deleteProject()">удалить..</button>
+    <div class ='taskListsDiv' cdkDropListGroup > 
+        <div *ngFor="let taskList of taskLists; index as i ;" class="taskList overflow-auto" cdkDropList
+        [cdkDropListData] ="taskList.tasks"
+        (cdkDropListDropped)="dropEvent($event)">
+            <div class="taskListName"> 
+                <div>
+                    {{taskList.name}}
+                </div>
+                <div *ngIf="taskList.name == 'new'" style="background-color: rgb(255, 158, 126); cursor: pointer; font-size: x-large;" (click)="rednerTaskForm()">
+                    +
+                </div>
+            </div>
+                <div cdkDrag  *ngFor="let task of taskList.tasks " class="taskName"   >
+                    <div (click)=" navigateToTask(task.id)">
+                        {{task.name}}
+                    </div>
+                    
+                    <div (click)="takeTask(task)">
+                        взять
+                    </div>
+                    <div (click)="deleteTask(task,taskList)">
+                        X
+                    </div>
+                    <div (click)=" navigateToTask(task.id)" >
+                        коментарии({{task.comments.length}})
+                    </div>  
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%; text-align: center;">Исполнители</div>
+    <div class ="perfomers" *ngIf ="proj">
+        <div (click)= "toggleInputLine()" >...пригласить </div>
+        <div *ngIf="creatingInvite">
+            <app-invite (onNewProjectInvite)=" onInvite($event)" [creating]='inviteData'>
+            </app-invite>
+        </div>
+        <div *ngIf ="!proj.perfomers.length" class="noPerfomers">
+            <div>в этом проекте нет исполнителей кроме вас, пригласите кого-нибудь</div>
+        </div> 
+        <div *ngIf = "proj.perfomers.length" >
+            <div *ngFor="let perfomer of proj.perfomers; index as i" class="perfomer"  style="margin-left: 2%;">{{i+1}}.{{perfomer.email}}</div>    
+        </div>
+    </div>
+    <div style="width: 100%; text-align: center;">Приглашенные</div>
+    <div class="perfomers" >
+        <div *ngFor="let invited of proj.invited; index as i" style="margin-left: 2%;">
+            <div>
+                {{i+1}}.{{invited.email}}:{{invited.id}}
+            </div>
+        </div>
+    </div>
+    
+<div *ngIf="renderService.renderTaskForm" style="position: absolute ;left: 0; top: 0;" >
+    <app-task-form (onCancel)="onModalWindowCanel()" ></app-task-form>
+</div>
+<div *ngIf="isDeleted">
+    <app-deleted-window (deletedWindow)="deletedProjectProcessing($event)">
+    </app-deleted-window>
+</div>
+    
+        
+       

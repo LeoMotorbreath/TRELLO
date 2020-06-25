@@ -1,0 +1,17 @@
+
+    <div class="outterSpace" (click)="toggle()"></div>    
+    <div class="innerSpace" >
+        <div class="nameDiv">
+            <input type= "text" required ngModel name="taskName" #taskName = "ngModel" placeholder="task name(required)"> 
+            <div class="alert alert-right" style="background-color: red;" *ngIf="!taskName.valid && taskName.touched">
+                имя проекта обязательно
+            </div>
+        </div>
+        
+        <div class="textDiv"> 
+            <textarea  class ="form-control" [(ngModel)]="taskText"></textarea>
+        </div>
+        <div class="submitDiv">
+            <button class = "btn btn-primary" (click)="postTask(taskName.value)" myDisabled> создать </button>
+        </div>
+    </div>

@@ -1,0 +1,22 @@
+<div style="width: 100%;text-align: center; font-size: large; margin-bottom: 5%;">Приглашения</div>
+<div *ngIf="currentUser">
+    <div *ngIf="currentUser.invites">
+        <div *ngFor="let invite of currentUser.invites" class = 'invite'>
+            <div style="font-size: large; margin-top: auto; margin-bottom: auto;">
+                {{invite.inviteToModel.name}}
+            </div>
+            <div style="font-size: large; margin-top: auto; margin-bottom: auto;">
+                {{invite.inviterModel.name}}
+            </div>
+            <div style="height: 100%; width: 15%; display: flex;" >
+                <button (click)="acceptInvite(invite)" class="btn btn-primary">принять </button>
+                <button (click)="rejectInvite(invite)" class="btn btn-danger">отказаться </button >
+            </div>
+        </div>
+    </div>  
+    <div *ngIf="!currentUser.invites.length">
+        <div class = "invite" style="background-color: coral;">
+            у вас нет приглашений :(
+        </div>
+    </div>
+</div>  

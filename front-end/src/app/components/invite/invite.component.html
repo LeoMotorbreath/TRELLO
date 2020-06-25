@@ -1,0 +1,10 @@
+
+    <div>
+        <div *ngIf='invalidInvite'>некорректный ввод или пользователь не может быть приглашен </div>
+        <div *ngIf='processing'> обработка..</div>
+        <div><input required type="text" placeholder="user email or id" [(ngModel)]="invitedId" ></div>
+        <div><input type="text" placeholder="some text to user" [(ngModel)]="text"></div>
+        <div><button type="submit" placeholder="send" (click)="inviteTo(invitedId,creating.inviteTo,creating.inviter)" appDisabled class="btn btn-primary"></button></div>
+    </div>        
+    
+            

@@ -1,0 +1,15 @@
+<div style="display: flex;" >
+    <div>
+        <input type="text" [(ngModel)]="text" >
+    </div>
+    <div style="display: flex; ">
+        <div style="height: 100%;">
+            <button class="btn btn-primary " style =" height: 100%;"(click)="createTaskComment() " appDisabled ></button >
+        </div>
+        
+            <div *ngIf='proccesing'>обработка...</div>
+    
+       
+    </div>
+        
+</div>

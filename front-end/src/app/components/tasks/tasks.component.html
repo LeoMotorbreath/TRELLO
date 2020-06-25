@@ -1,0 +1,42 @@
+<div class = 'contant'>        
+    
+    <div class = "tasks" *ngIf="allRelatedTasks">
+        <div style="width: 100%; height: 8%;background-color: rgb(91, 214, 255); text-align: center;">
+            все связанные задачи
+        </div>
+        <div *ngIf="allRelatedTasks.length" style="display: flex;flex-direction: column;">
+            <div *ngFor="let tsk of allRelatedTasks" class="task">
+                <div (click)="navigateToTask(tsk)">
+                    {{tsk.name}}
+                </div>
+                из
+                <div (click)=" navigateToTaskProject(tsk)">
+                    {{tsk.projectModel.name}}
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!allRelatedTasks.length" style="background-color: coral;">
+            ниодной связанной задачи
+        </div>        
+    </div>
+    <div class = "tasks" *ngIf="user">
+        <div style="width: 100%;height: 8%; background-color: rgb(91, 214, 255); text-align: center;">
+            все принятые задачи
+        </div>
+        <div *ngIf="user.tasks.length">
+            <div *ngFor="let tsk of user.tasks" class = "task">
+                <div  (click)="navigateToTask(tsk)">
+                    {{tsk.name}}
+                </div>
+                из
+                <div (click)=" navigateToTaskProject(tsk)">
+                    {{tsk.projectModel.name}}
+                </div>
+            </div>
+        </div>
+        <div  *ngIf="!user.tasks.length" style="background-color: coral;">
+            Ниодной принятой задачи
+            Вы можете взять задачи нажав "взять" кнопку в разделе "проект"
+        </div>
+    </div>
+</div>
