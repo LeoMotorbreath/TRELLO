@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDataService } from 'src/app/services/user-data.service';
-import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { IUser } from 'src/classes/User';
-import { Path } from 'src/classes/path';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { RenderService } from 'src/app/services/render.service';
 

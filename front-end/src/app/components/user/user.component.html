@@ -1,23 +1,25 @@
-<div *ngIf="user">
-    <div class = "userName">
-        Пользователь: {{user.email}},  id: {{user.id}}
+
+    <div *ngIf="user" class = "userName" style="background-color: rgb(255, 249, 208);">
+        <div style="width: 100%; text-align: center; margin-top: 12.5%; font-size: large;">
+            Пользователь: {{user.email}},  id: {{user.id}}
+        </div>
+        <div class = "header" (click) = navigateToProjects()>
+            Проекты
+        </div>
+        <div *ngIf = '!user.projects.length' style="background-color: coral;">
+            Нет текущих проектов (создайте свой проект самостоятельно либо приймите приглашение от другого пользователя) 
+        </div>
+        <div *ngFor="let project of user.projects" (click)="navigateToProject(project.id)" class="name bg-warning card" style="margin-top: 0.5%;">
+            {{project.name}}
+        </div>
+        <div class = "header" (click)="navigateToTasks()">
+            Задачи
+        </div>
+        <div *ngIf = '!user.tasks.length' style="background-color: coral;">
+            Нет текущих задач (возьмите себе задачу из своих проектов)
+        </div>
+        <div *ngFor="let task of user.tasks" class = "name bg-warning card " style="margin-top: 0.5%;">
+            {{task.name}}
+        </div>
     </div>
-    <div class = "header" (click) = navigateToProjects()>
-        Проекты
-    </div>
-    <div *ngIf = '!user.projects.length' style="background-color: coral;">
-        Нет текущих проектов (создайте свой проект самостоятельно либо приймите приглашение от другого пользователя) 
-    </div>
-    <div *ngFor="let project of user.projects" (click)="navigateToProject(project.id)" class="name">
-        {{project.name}}
-    </div>
-    <div class = "header" (click)="navigateToTasks()">
-        Задачи
-    </div>
-    <div *ngIf = '!user.tasks.length' style="background-color: coral;">
-        Нет текущих задач (возьмите себе задачу из своих проектов)
-    </div>
-    <div *ngFor="let task of user.tasks" class = "name">
-        {{task.name}}
-    </div>
-</div>
+    

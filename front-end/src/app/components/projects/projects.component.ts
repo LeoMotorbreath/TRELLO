@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { IUser } from 'src/classes/User';
-import { IProject, Project } from 'src/classes/project';
-import { UserDataService } from 'src/app/services/user-data.service';
-import { tap, take } from 'rxjs/operators';
+import { Project } from 'src/classes/project';
+import { tap,  } from 'rxjs/operators';
 import { LoadService } from 'src/app/services/load.service';
 import { RenderService } from 'src/app/services/render.service';
-import { TestService } from 'src/app/services/test.service';
-import { ObjectManagerService } from 'src/app/services/object-manager.service';
 
 
 @Component({

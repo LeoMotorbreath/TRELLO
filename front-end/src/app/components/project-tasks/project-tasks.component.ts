@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { ITaskList } from 'src/classes/task-list';
-import { IProject, Project } from 'src/classes/project';
+import {  Project } from 'src/classes/project';
 
-import { ITask } from 'src/classes/task';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Comment_ } from 'src/classes/comment';
-import { Model } from 'src/classes/model';
 
 @Component({
   selector: 'app-project-tasks',

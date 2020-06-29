@@ -49,7 +49,6 @@ export class CommentComponent implements OnInit {
   this.currentUser = this.auth.getCurrentUser();
   this.load.checkUser(this.currentUser).pipe(
     catchError((er)=>{
-      console.log(er);
        return of(false);
       }),
     tap((data)=>{

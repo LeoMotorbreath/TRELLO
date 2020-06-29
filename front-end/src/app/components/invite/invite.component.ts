@@ -1,11 +1,10 @@
-import { Component, OnInit ,EventEmitter,Output, Input, ViewChild} from '@angular/core';
+import { Component, OnInit ,EventEmitter,Output, Input} from '@angular/core';
 import { Project } from 'src/classes/project';
 import { User } from 'src/classes/User';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { tap, switchMap, catchError } from 'rxjs/operators';
 import { LoadService } from 'src/app/services/load.service';
 import { ObjectManagerService } from 'src/app/services/object-manager.service';
-import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Model } from 'src/classes/model';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -36,7 +35,7 @@ export class InviteComponent implements OnInit {
   text:string;
   task: Task;
   boolean : boolean;
-  invitedId: number;
+  invitedId;
   processing: boolean;
   checkbox
   
@@ -91,8 +90,6 @@ export class InviteComponent implements OnInit {
       }
       this.clickManger.dissable();
       this.projectService.createInvite(invite).pipe(
-        catchError(er=>{this.invalidInvite = true; return of(0)}),
-        tap((data)=>console.log(data)),
         tap(data =>{
           if(data){
             (data as any).emit? this.onTaskInvite((data as any).invites): this.onProjectInvite((data as any).invites)
@@ -101,10 +98,17 @@ export class InviteComponent implements OnInit {
             this.onProjectInvite((false));
           }
         })
-      ).subscribe(()=>{
-        this.clickManger.turnOn();
-        this.processing = false;
-      });
+      ).subscribe(
+        (succsess)=>{ 
+          this.clickManger.turnOn();
+          this.processing = false;
+        },
+        (err)=>{
+          alert('Пользователь не найден, проверьте ввод!');
+          this.clickManger.turnOn();
+          this.processing = false; 
+        }
+      );
     }
 
   }

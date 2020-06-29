@@ -28,10 +28,7 @@ export class ProjectFormComponent implements OnInit {
   constructor(
     private auth:             AuthService,
     private router:           Router,
-    private data:             UserDataService,
-    private load :            LoadService,
     private objectManager:    ObjectManagerService,
-    private activatedRoute:   ActivatedRoute,
     private renderService:    RenderService,
     private render:           RenderService,
     private test:             TestService,
@@ -50,14 +47,25 @@ export class ProjectFormComponent implements OnInit {
   }  
 
   createProject(name,def){
+    if(!name ){
+      alert("Укажите имя проекта!")
+      return 
+    }
+    if(name.length>20){
+      
+    }
     this.clicksManager.dissable();
     this.projectService.postProject(this.currentUser.createProject(name,def)).pipe(
       tap((data)=>this.auth.currentUser.projects = this.objectManager.processEnitys((data as any).projects)),
       tap(()=>this.router.navigate(['project',this.auth.currentUser.projects[this.auth.currentUser.projects.length-1].id]))
-    ).subscribe(()=>{
+    ).subscribe((s)=>{
       this.render.renderLoadingWindow = false;
       this.clicksManager.turnOn();
-    })
+    }),
+    (err)=>{
+      alert('произошла ошибка, попробуйте снова');
+      this.clicksManager.turnOn()
+    }
   }
 
   ngOnInit() {

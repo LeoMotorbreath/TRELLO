@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import {Router, ActivatedRoute} from '@angular/router';
-import { IUser, User } from 'src/classes/User';
+import {Router} from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { tap, switchMap, switchAll, map, mergeMap, concatMap, catchError } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { UserDataService } from 'src/app/services/user-data.service';
-import { of, from } from 'rxjs';
-import { KeyValuePipe } from '@angular/common';
+import { of } from 'rxjs';
 import { RenderService } from 'src/app/services/render.service';
-import { TestService } from 'src/app/services/test.service';
 import { ClickableElementsManagerService } from 'src/app/services/clickable-elements-manager.service';
+import { RegistrationService } from 'src/app/services/registration.service';
 
 @Component({
   selector: 'app-auth',
@@ -18,27 +16,64 @@ import { ClickableElementsManagerService } from 'src/app/services/clickable-elem
 })
 export class AuthComponent implements OnInit {
   constructor(
-    private auth: AuthService,
-    private router : Router,
-    private dataService: UserDataService,
-    private activatedRoute : ActivatedRoute,
-    private renderService:  RenderService,
-    public test: TestService,
-    private clickManager: ClickableElementsManagerService
+    private auth:               AuthService,
+    private router:             Router,
+    private dataService:        UserDataService,
+    private renderService:      RenderService,
+    private clickManager:       ClickableElementsManagerService,
+    private reg:                RegistrationService
      ) { }
   
   email      :string;
   password   : string;
   
+
   
   moveToRegistration(){
     
     this.router.navigate(['registration']);
     
   }
-  private navigateToUser(){
-    this.router.navigate(['user'])
+  
+  validate(email, password) {
+
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) && password.length > 6){
+    return true
+  }else{
+    
+    return false
+
   }
+}
+  registre(){
+    if(!this.validate(this.email,this.password)){
+      alert('некоректные данные! убедитесь, что вы правильно ввели email и длинна вашего пароля больше 5 символов');
+      return 
+    }
+    this.clickManager.dissable()
+    this.auth.logOut();  
+    
+    this.reg.register(this.email,this.password).pipe(
+      
+      tap((data)=>{
+        if(data) {
+          this.auth.setJWT((data as any).jwt);
+          this.auth.setCurrentUser((data as any).user);
+          this.renderService.renderNavBar = true;
+          this.router.navigate(['user']);
+      }})
+      ).subscribe(
+        
+        
+        res=>this.clickManager.turnOn(),
+        err=>{
+          this.clickManager.turnOn()
+             alert('пользователь с таким email уже существует!')
+        },
+        ()=>console.log('completed')
+        
+  )
+}
   login(){
     this.clickManager.dissable();
     this.auth.login(this.email,this.password).pipe(

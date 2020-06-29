@@ -87,7 +87,9 @@ export class TaskFormComponent implements OnInit {
         tap((data)=>   this.projId = +data.id),
         tap(()=>this.project = this.user.projects.find((project)=>project.id === this.projId)),
         
-      ).subscribe(()=>this.renderService.renderLoadingWindow = false); 
+      ).subscribe(
+        (s)=>this.renderService.renderLoadingWindow = false);
+        (er)=>{alert('произошла ошибка авторизации, вы будете переадресованы '); this.router.navigate(['auth'])}; 
   }
 
 }

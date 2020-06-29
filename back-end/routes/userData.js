@@ -20,7 +20,8 @@ router.get("/user",async (req,res)=>{
                 for(let j = 0; j<  projects[i].taskLists.length;j++){
                     for(let q = 0; q<projects[i].taskLists[j].tasks.length; q++) {
                         let task = await Task.findOne({id: projects[i].taskLists[j].tasks[q]});
-                        if(task.deleted){
+                        
+                        if(task && task.deleted){
                             task = {id:task.id,name:task.name,deleted:true};
                         }
                         projects[i].taskLists[j].tasks[q] = task;

@@ -1,19 +1,23 @@
 
 <div class = "authDiv"> 
     <div class="loginDiv">
-        <input  [(ngModel)]="email">
+        <input style="height: 150%;" [(ngModel)]="email" placeholder="email">
     </div>
     <div class="passwordDiv">
-        <input  [(ngModel)]="password">
+        <input style="height: 150%;" [(ngModel)]="password" placeholder="login">
     </div>
-    <div class="submitDiv">
-        <button class="btn btn-primary sub-btn enter" type = "submit" (click)="login()" myDisabled>
+    <div class="submit-div" style="display: flex; justify-content: space-evenly;">
+        <button class="btn btn-primary sub-btn enter" style="margin-top: 3.5%;" type = "submit" (click)="login()" appDisabled>
             Войти
         </button> 
+        <button class="btn btn-primary sub-btn enter" style="margin-top: 3.5%;" type = "submit"  (click)="registre()"appDisabled>
+            Зарегестрироваться
+        </button> 
     </div>
-    <div class = "regDiv">
+    <!-- <div class = "regDiv">
         <button class = "reg-btn btn btn-secondary btn-lg" (click)="moveToRegistration()">регистрация</button>
-    </div>
+    </div> -->
+    
     <div>
         
     </div>

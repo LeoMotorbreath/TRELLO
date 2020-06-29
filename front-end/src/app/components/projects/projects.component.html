@@ -1,15 +1,16 @@
-<div style="width: 100%; height: 100%;">
-    <div style="width: 100%;  background-color: coral; text-align: center;">
+<div style="width: 100%; height: 100%;display: flex; flex-direction: column; background-color: rgb(245, 238, 180);" >
+    <div style="width: 100%;   text-align: center; background-color: coral; height: 2%;" >
         Это ваши проекты!
     </div>
-    <div style="width: 60%; background-color: floralwhite; border:  1px gray solid ;border-radius: 27px; height: 30%; margin-left: 20%; margin-top:10%">
-        <div *ngIf="!user.projects.length"  style="width:100%; ; text-align: center; height: 12.5%; font-size: 1.25rem;">
+
+    <button (click)="initForm()" class="btn btn-success" style="margin-top: auto; cursor: pointer; width: 40% ; margin-left: 30% ; border-radius: 27px;">создать проект </button>
+    <div style="width: 60%; background-color: floralwhite; border:  1px gray solid ;overflow-y: auto; border-radius: 27px; height: 30%; margin-left: 20%; margin-bottom: auto; display: flex; flex-direction: column; justify-content: flex-start;" class="list-group">
+        <div *ngIf="!user.projects.length"  style="width:100%; ; text-align: center; height: 12.5%; font-size: 1.25rem; margin-top: 2%;">
             у вас еще нет проектов, создайте первый!
         </div>
-        <button (click)="initForm()" class="toForm btn btn-success" style="cursor: pointer; width: 40% ; margin-left: 30% ; border-radius: 27px;">создать проект </button>
-        <div *ngFor="let project of projects;index as i" >
-            <div (click)='navigateToProject(project.id  ) '  style="margin-left:6%; margin-top: 0.5%; cursor: pointer;" >{{i+1}}: {{project.name}}</div>
-    </div>
+        <div *ngFor="let project of projects;index as i" class="card bg-warning" style=" margin-top: 1.75%;">
+            <div (click)='navigateToProject(project.id)'  style="  cursor: pointer; margin-bottom: 0.5%; margin-top: 0.5%; margin-left: 0.75%;" >{{i+1}}: {{project.name}}</div>
+        </div>
     </div>
     <div *ngIf="renderForm"  style="position: absolute; width: 100%; height: 100%; top: 0;" >
         <app-project-form (onCancel)="turnOffProjectForm()"></app-project-form>

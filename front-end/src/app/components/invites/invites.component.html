@@ -1,21 +1,21 @@
-<div style="width: 100%;text-align: center; font-size: large; margin-bottom: 5%;">Приглашения</div>
-<div *ngIf="currentUser">
-    <div *ngIf="currentUser.invites">
-        <div *ngFor="let invite of currentUser.invites" class = 'invite'>
-            <div style="font-size: large; margin-top: auto; margin-bottom: auto;">
+<div style="width: 100%;text-align: center; font-size: large; margin-bottom: 5%;  ">Приглашения</div>
+<div *ngIf="currentUser" style="border: black solid 1px; width: 40%; height: 30%;  margin-left: 30%; ">
+    <div *ngIf="currentUser.invites" >
+        <div *ngFor="let invite of currentUser.invites" style="display: flex; flex-wrap: nowrap; justify-content:space-evenly; width: 100%; font-size: large; border: 1px gray solid; margin-top:1%">
+            <div style="margin-right: auto; margin-top: auto; margin-bottom: auto; margin-left: 1%">
                 {{invite.inviteToModel.name}}
             </div>
-            <div style="font-size: large; margin-top: auto; margin-bottom: auto;">
+            <div style="margin-left: auto;margin-right: auto; margin-top: auto; margin-bottom: auto;">
                 {{invite.inviterModel.name}}
             </div>
-            <div style="height: 100%; width: 15%; display: flex;" >
-                <button (click)="acceptInvite(invite)" class="btn btn-primary">принять </button>
-                <button (click)="rejectInvite(invite)" class="btn btn-danger">отказаться </button >
+            <div  style="margin-left: auto;"> 
+                <button (click)="acceptInvite(invite)" class="btn btn-primary" >принять </button>
+                <button (click)="rejectInvite(invite)" class="btn btn-danger" > отказаться </button >
             </div>
         </div>
     </div>  
     <div *ngIf="!currentUser.invites.length">
-        <div class = "invite" style="background-color: coral;">
+        <div class = "invite" style="background-color: coral; margin-top: 2%;">
             у вас нет приглашений :(
         </div>
     </div>

@@ -23,7 +23,7 @@ router.delete('/invite/:toId',async (req,res)=>{
     
     enity.invited.splice(enity.invited.findIndex(inv=>inv.id == user.id));
     bool? await Task.updateOne({id: req.params.toId} , enity): await Project.updateOne({id:req.params.toId}, enity)
-    return res.status(201).json({invites:user.invites});
+    return res.status(201).json({message: true});
 })
 
 module.exports = router;  

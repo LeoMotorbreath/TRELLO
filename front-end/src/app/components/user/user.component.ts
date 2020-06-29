@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { IUser, User } from 'src/classes/User';
+import {  User } from 'src/classes/User';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ITask } from 'src/classes/task';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { LoadService } from 'src/app/services/load.service';
 import { RenderService } from 'src/app/services/render.service';
 import { tap, catchError } from 'rxjs/operators';
-import { TestService } from 'src/app/services/test.service';
 import { of } from 'rxjs';
 
 
@@ -64,11 +63,14 @@ export class UserComponent implements OnInit {
           this.user = data;
         }
       })
-    ).subscribe(()=>{
+    ).subscribe((s)=>{
       this.render.renderNavBar = true;
       this.navbarSerivce.toggleActive('user')
       this.render.renderLoadingWindow = false;
-    })
+    }),
+    (er)=>{
+      alert('произошла ошибка авторизации, пройдите ее заново'); this.router.navigate['auth']
+    }
   }
   
 }

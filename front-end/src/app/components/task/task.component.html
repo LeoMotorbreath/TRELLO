@@ -1,21 +1,17 @@
-<p (click)=" goBack()">назад </p>
-<div *ngIf="task" class="task">
-    <div class="name" (click)="navigateToProject()">
-        Задача : {{task.name}} из проекта : {{task.projectModel.name}}
-    </div>    
+<div *ngIf="task" class="task" style="background-color: rgb(252, 246, 212);">
+    <div class="name" (click)="navigateToProject()" style="position: fixed; width: 100%;">
+        <button  class="btn btn-secondary" (click)=" goBack() " style=" height: 100% ; position: absolute;text-align: start !important; z-index: 10;" > Назад </button>
+            <div style="position: absolute; margin-left: auto;margin-right: auto;left: 0;right: 0; top: 0; bottom: 0;text-align: center; font-size: large; ">
+                Задача : {{task.name}} из проекта: {{task.projectModel.name}}
+            </div>
+        </div>    
     <div class="contain"  >
-        <div style="display: flex; width: 100%; cursor: pointer" (click)='toggleCommentInput()'>
-
-            <div >
-                комментарии
-            </div>
-            <div *ngIf="!task.comments.length">
-                (no comments yet)
-            </div>
+        <div (click)='toggleCommentInput()' style="display: flex;width: 100%; margin-left: 1%; font-size: large; cursor: pointer;">
+            Комментировать
         </div>
         
         <div *ngIf="task.comments.length" >
-            <div *ngFor="let comment of task.comments" style="display: flex; justify-content: space-between; flex-direction: column;">
+            <div *ngFor="let comment of task.comments" style="display: flex; justify-content: space-between; flex-direction: column; background-color: inherit; margin-top: 1%;" class="card ">
                 <div style="display: inline-flex; justify-content: space-between; ">
                     {{comment.authorModel.email}}
                     <div (click)="deleteComment(comment)" appDisabled style=" display:inline; font-size: 150%; cursor: pointer; ">
@@ -34,9 +30,9 @@
         </div>
         
     </div>
-    <div class="contain">
-        <div (click)="toggleInviteRendering()">
-            пригласить
+    <div class="contain" >
+        <div (click)="toggleInviteRendering()" style="font-size: large; cursor: pointer;">
+            Пригласить
         </div>
         <div *ngIf="invite">
             <div *ngIf='invalidInvite'>
@@ -47,13 +43,16 @@
 
             </app-invite>
         </div>
-        <div *ngIf="!task.perfomers.length " >
+        <div *ngIf="!task.invited.length && !task.perfomers.length" >
             ниодного приглашенного(0).. пригласите кого-то!
         </div>
-        <div *ngIf="task.perfomers.length">
+        <div *ngIf="task.perfomers.length || task.invited.length"  style="background-color: inherit;">
             
-            <div *ngFor="let perfomer of task.perfomers">
-                {{perfomer.name}}
+            <div *ngFor="let invited of task.invited" style="margin-top:1%; margin-left: 2%;" class="card" style="background-color: inherit; margin-top: 1.5%;">
+                {{invited.email}} ( invited )
+            </div>
+            <div *ngFor="let perfomer of task.perfomers" class="card" style="background-color: inherit; margin-top: 1.5%;">
+                {{perfomer.email}} ( perfomer )
             </div>
         </div>
     </div>

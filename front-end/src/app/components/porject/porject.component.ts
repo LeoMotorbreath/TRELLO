@@ -1,21 +1,18 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
-import { IProject, Project } from 'src/classes/project';
-import { IUser, User } from 'src/classes/User';
+import {  Project } from 'src/classes/project';
+import {  User } from 'src/classes/User';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { UserDataService } from 'src/app/services/user-data.service';
-import { tap, switchMap, mergeMap, catchError, debounce, debounceTime } from 'rxjs/operators';
+import { tap, switchMap,  catchError, } from 'rxjs/operators';
 import { LoadService } from 'src/app/services/load.service';
-import { of, iif } from 'rxjs';
+import { of,  } from 'rxjs';
 import { RenderService } from 'src/app/services/render.service';
-import { TaskList, ITaskList } from 'src/classes/task-list';
+import { TaskList} from 'src/classes/task-list';
 import { Task } from 'src/classes/task';
-import { ObjectManagerService } from 'src/app/services/object-manager.service';
-import { Model } from 'src/classes/model';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Comment_ } from 'src/classes/comment';
-import { TestService } from 'src/app/services/test.service';
+
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
+
 import { ClickableElementsManagerService } from 'src/app/services/clickable-elements-manager.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { ProjectService } from 'src/app/services/project.service';
@@ -33,12 +30,8 @@ export class PorjectComponent implements OnInit {
     private auth            : AuthService,
     private router          : Router,
     private activatedRoute  : ActivatedRoute,
-    private data            : UserDataService,
     private load            : LoadService,
     public  renderService    : RenderService,
-    private dataService     : UserDataService,
-    private objectManager   : ObjectManagerService,
-    private test            : TestService,
     private changeDetector  : ChangeDetectorRef,
     private clickManager    : ClickableElementsManagerService,
     private navbar          : NavbarService,
@@ -112,37 +105,39 @@ export class PorjectComponent implements OnInit {
   rednerTaskForm() {
     this.renderService.renderTaskForm = true;
   }
+  
   private findTaskList(tasks: Task[]) : TaskList{
-    return (this.proj.taskLists.find(taskList=> taskList.tasks == tasks));
-  }
-  dropEvent(event: CdkDragDrop<Task[]>){
-    
+     let x  = this.proj.taskLists.find(taskList=> (taskList.tasks == tasks))
+      return x 
+    }
+  dropEvent(event: CdkDragDrop<Task[]>,taskList){
+    console.log(taskList);
     if(this.clickManager.dissabled){
       return
     }
     this.clickManager.dissable();
-    this.findTaskList(event.previousContainer.data),
-    this.findTaskList(event.container.data)
+      let data  ={
+        projectId:          this.proj.id,
+        container:          taskList._id,
+        prevContainer:      this.findTaskList(event.previousContainer.data)._id,
+        prevIndex:          event.previousIndex,
+        currentIndex:       event.currentIndex
+
+      }
     transferArrayItem(
       event.previousContainer.data,
       event.container.data,
       event.previousIndex,
       event.currentIndex,
       );
-      this.onDrop(event).pipe(
+      this.onDrop(data).pipe(
           
-          tap((data)=>console.log(data)),
         ).subscribe(()=>this.clickManager.turnOn())
       }
-      private onDrop(event:CdkDragDrop<Task[]>){
-        let dataToSend = {
-          projectId: this.proj.id,
-          previousContainer: this.findTaskList(event.previousContainer.data as any)._id,
-          currentContainer: this.findTaskList(event.container.data as any)._id,
-          previousIndex : event.previousIndex,
-          currentIndex: event.currentIndex
-        }
-        return this.taskService.moveTask(dataToSend)
+      private onDrop(data: any){
+        
+        
+        return this.taskService.moveTask(data)
       }
     deleteTask(task,taskList){
       let bool = confirm('вы уверенны что хотите удалить задачу?')
@@ -170,6 +165,7 @@ export class PorjectComponent implements OnInit {
 
     takeTask(task: Task){
       if(this.user.tasks.some(tsk => tsk.id == task.id)){
+        alert('вы уже выполняете эту задачу')
         return;
       }
       this.clickManager.dissable();
@@ -181,6 +177,7 @@ export class PorjectComponent implements OnInit {
           }
         })
       ).subscribe(()=>{
+        alert('вы взяли задачу на выполнение')
         this.clickManager.turnOn();
       })
 

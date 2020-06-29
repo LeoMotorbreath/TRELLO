@@ -21,29 +21,21 @@ router.post('/acceptInvite', async (req,res)=>{
         user.projects.push(invitedTo.id);
         invitedTo.perfomers.push({id:user.id,email:user.email});
         user.invites.splice(user.invites.findIndex(inv=>inv.inviteToModel.id == invite.inviteToModel.id),1)
-        console.log(invitedTo.invited.splice(invitedTo.invited.findIndex(inv=>inv.id == user.id),1),'splice')
-        await Project.updateOne({id:invite.inviteToModel.id},invitedTo);
+        await Project.updateOne({id :invite.inviteToModel.id},invitedTo);
         await User.updateOne({_id: req.headers.personId}, user );
         return res.json({message:1})
-        //
     }else{
-        console.log(invitedTo,'!')
         pr = await Project.findOne({id: invitedTo.projectModel.id});
-        
-        
             pr.perfomers.push({id:user.id,email:user.email});
             pr.invited.splice(pr.invited.findIndex(inv=>inv.inviteToMdodel.id == invite.inviteToModel.id),1)
             await Project.updateOne({id:invitedTo.projectModel.id},pr)
             await User.updateOne({_id:req.headers.personId}, user);
             user.tasks.push(invitedTo.id);
-            console.log(user.invites[0])
             user.invites.splice(user.invites.findIndex(inv=>inv.inviteToModel.id == invite.inviteToModel.id),1)
             invitedTo.perfomers.push({id:user.id,email:user.email});
             await Task.updateOne({id:invite.inviteToModel.id},invitedTo);
             await User.updateOne({_id:req.headers.personId}, user);
-            return res.json({message:1})
-        
-
+            return res.json({message:1});
     }
 })
 

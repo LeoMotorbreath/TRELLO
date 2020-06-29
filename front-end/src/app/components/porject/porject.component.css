@@ -22,7 +22,7 @@
     display: block;
     display: flex;
     justify-content: space-between;
-    background-color: lightcoral;
+
 }
 .taskListsDiv{
     display: flex;
