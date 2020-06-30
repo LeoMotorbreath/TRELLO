@@ -57,7 +57,7 @@ export class TaskComponent implements OnInit {
           let x = this.currentUser.getUserTasks();
           this.currentUser.tasks =  this.currentUser.tasks.map(task=>task = x.find(tk=>tk.id == task));
         })
-        ).subscribe(()=>console.log(this.task.invited));
+        ).subscribe();
         
       }
 

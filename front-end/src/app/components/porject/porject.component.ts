@@ -31,7 +31,7 @@ export class PorjectComponent implements OnInit {
     private router          : Router,
     private activatedRoute  : ActivatedRoute,
     private load            : LoadService,
-    public  renderService    : RenderService,
+    public  renderService   : RenderService,
     private changeDetector  : ChangeDetectorRef,
     private clickManager    : ClickableElementsManagerService,
     private navbar          : NavbarService,
@@ -193,12 +193,7 @@ export class PorjectComponent implements OnInit {
       } 
     this.clickManager.dissable();
     this.projectService.deleteProject(this.proj).pipe(
-      catchError(err=>of(false)),
-      tap(data=>{
-        if(!data){
-          
-        }
-      }),
+      
       tap((data)=>{
         if((data as any).message){
           this.user.projects.splice(this.user.projects.findIndex(project=>project.id == this.proj.id));
@@ -207,6 +202,9 @@ export class PorjectComponent implements OnInit {
     })
     ).subscribe(()=>{
       this.clickManager.turnOn();
+    },
+    (err)=>{
+      alert('что-то пошло нетак')
     });
   }
   deletedProjectProcessing(data ){

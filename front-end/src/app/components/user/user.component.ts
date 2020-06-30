@@ -53,23 +53,18 @@ export class UserComponent implements OnInit {
     
   ngOnInit(): void {
     this.user = this.auth.getCurrentUser();
-    this.render.renderNavBar = true;
     this.load.checkUser(this.user).pipe(
-      catchError((er)=>{ return of(false)}),
-      tap((data)=>{
-        if(!data){
-          this.router.navigate([''])
-        }else{
-          this.user = data;
-        }
-      })
+      tap((data)=>
+          this.user = data
+        
+      )
     ).subscribe((s)=>{
       this.render.renderNavBar = true;
       this.navbarSerivce.toggleActive('user')
-      this.render.renderLoadingWindow = false;
     }),
     (er)=>{
-      alert('произошла ошибка авторизации, пройдите ее заново'); this.router.navigate['auth']
+      alert('произошла ошибка авторизации, пройдите ее заново');
+      this.router.navigate['auth']
     }
   }
   

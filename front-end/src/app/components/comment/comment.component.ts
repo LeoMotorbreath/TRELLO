@@ -45,28 +45,19 @@ export class CommentComponent implements OnInit {
   }
   bol: boolean = true;
   ngOnInit(): void {
-  this.renderService.renderLoadingWindow = true;
   this.currentUser = this.auth.getCurrentUser();
   this.load.checkUser(this.currentUser).pipe(
-    catchError((er)=>{
-       return of(false);
-      }),
     tap((data)=>{
       if(!data){
-        this.renderService.fatalError = true;
         this.router.navigate(['auth']);
       }else{
         this.currentUser = data;
-        console.log('user:' ,this.currentUser)
       }
     }),
     switchMap(()=>this.activatedRoute.params),
     tap((data)  => this.task = this.objectManager.updateObjectData(this.currentUser.getUserTasks().find((task)=>task.id === +data.id),new Task())),
     tap(()  => this.project = this.currentUser.projects.find(proj=>proj.id == this.task.projectModel.id))  ,
-  ).subscribe(()=>{
-    this.renderService.renderLoadingWindow = false;
-
-  })
+  ).subscribe()
   }
 
   createTaskComment(){
@@ -74,13 +65,17 @@ export class CommentComponent implements OnInit {
     this.clickManger.dissable()
     let  comment = this.currentUser.createTaskComment(this.text,this.project,this.task.id);
     this.dataService.сreateComment(comment).pipe(
-      catchError((err)=>{alert('что-то пошло не так!'); return of(false)}),
       tap((data)=>{
         if(data){
           this.onComments(data)
         }
       })
-    ).subscribe(()=>{
+    ).subscribe((s)=>{
+      this.proccesing = false;
+      this.clickManger.turnOn();
+    },
+    (err)=>{
+      alert('что-то пошло не так, попробуйте снова!')
       this.proccesing = false;
       this.clickManger.turnOn();
     });

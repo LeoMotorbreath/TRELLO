@@ -8,6 +8,7 @@ import { IInvite } from 'src/classes/invite';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { InviteService } from 'src/app/services/invite.service';
+import { ClickableElementsManagerService } from 'src/app/services/clickable-elements-manager.service';
 
 @Component({
   selector: 'app-invites',
@@ -23,11 +24,10 @@ export class InvitesComponent implements OnInit {
     private load          : LoadService,
     private router        : Router,
     private inviteService : InviteService,
-    private changeDetect  : ChangeDetectorRef
+    private clickService  : ClickableElementsManagerService
   ) {
 
    }
-   @ViewChild('button') buttons
   ngOnInit(): void {
   this.currentUser = this.auth.currentUser;
   this.load.checkUser(this.currentUser).pipe(
@@ -47,16 +47,21 @@ export class InvitesComponent implements OnInit {
   }
 
   rejectInvite(invite: IInvite){
-    this.dissable = true;
     this.inviteService.rejectInvite(invite.inviteToModel.id).pipe(
       tap((data)=> {
         if(data){
-          if((data as any) .message){
+          if((data as any).message){
             this.currentUser.invites.splice(this.currentUser.invites.findIndex(inv => inv == invite),1);
           }
         }
       }),
-    ).subscribe(()=>this.dissable = false);
+    ).subscribe(
+      (s)=>{this.clickService.turnOn()},
+      (err)=>{
+        alert('что-то пошло не так');
+        this.clickService.turnOn();
+      }
+      );
   }
   acceptInvite(invite: IInvite) {
     this.dissable = true;

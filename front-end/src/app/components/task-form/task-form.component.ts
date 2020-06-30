@@ -1,19 +1,16 @@
 import { Component, OnInit, ChangeDetectorRef, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
-import { IProject, Project } from 'src/classes/project';
-import { ITaskList, TaskList } from 'src/classes/task-list';
-import { IUser, User } from 'src/classes/User';
+import {  Project } from 'src/classes/project';
+import { User } from 'src/classes/User';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Task } from 'src/classes/task';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { LoadService } from 'src/app/services/load.service';
-import { tap, switchMap, debounceTime, debounce } from 'rxjs/operators';
+import { tap, switchMap,  } from 'rxjs/operators';
 import { ObjectManagerService } from 'src/app/services/object-manager.service';
 import { RenderService } from 'src/app/services/render.service';
 import { TestService } from 'src/app/services/test.service';
-import { Model } from 'src/classes/model';
-import { timer, interval } from 'rxjs';
 import { ClickableElementsManagerService } from 'src/app/services/clickable-elements-manager.service';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -72,7 +69,6 @@ export class TaskFormComponent implements OnInit {
   }
   
   ngOnInit(){
-    this.renderService.renderLoadingWindow = true;
     this.user = this.auth.getCurrentUser();
       this.load.checkUser(this.user).pipe(
         tap((data)=>{
@@ -88,7 +84,7 @@ export class TaskFormComponent implements OnInit {
         tap(()=>this.project = this.user.projects.find((project)=>project.id === this.projId)),
         
       ).subscribe(
-        (s)=>this.renderService.renderLoadingWindow = false);
+        (s)=>{});
         (er)=>{alert('произошла ошибка авторизации, вы будете переадресованы '); this.router.navigate(['auth'])}; 
   }
 

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { ITask, Task } from 'src/classes/task';
-import { IUser, User } from 'src/classes/User';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { User } from 'src/classes/User';
 import { LoadService } from 'src/app/services/load.service';
 import { tap } from 'rxjs/operators';
 import { RenderService } from 'src/app/services/render.service';
@@ -17,7 +16,6 @@ import { RenderService } from 'src/app/services/render.service';
 export class TasksComponent implements OnInit {
 
   constructor(
-    private auth: AuthService,
     private router : Router,
     private loadService: LoadService,
     private renderSerivce: RenderService

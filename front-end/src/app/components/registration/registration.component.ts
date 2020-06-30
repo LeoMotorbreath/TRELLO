@@ -51,13 +51,13 @@ export class RegistrationComponent  {
       this.reg.register(email,password).pipe(
         
         tap((data)=>{
-          if(data) {
-            this.auth.setJWT((data as any).jwt);
-            this.auth.setCurrentUser((data as any).user);
-            this.renderService.renderNavBar = true;
-            this.router.navigate(['user']);
-        }})
-        ).subscribe(
+
+          this.auth.setJWT((data as any).jwt);
+          this.auth.setCurrentUser((data as any).user);
+          this.renderService.renderNavBar = true;
+          this.router.navigate(['user']);
+        }
+        )).subscribe(
           
           
           res=>this.clickManager.turnOn(),
@@ -65,8 +65,6 @@ export class RegistrationComponent  {
             this.clickManager.turnOn()
                alert('пользователь с таким email уже существует!')
           },
-          ()=>console.log('completed')
-          
-    )
+      )
   }
 }
